@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:signup/components/BaseAppBar.dart';
+import 'package:signup/models/User.dart';
 
 class SignupScreen extends StatefulWidget {
   SignupScreen({Key key}) : super(key: key);
@@ -13,7 +14,15 @@ class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   bool _hiddenPassword = true;
   void _onSubmit() {
-    if (!_formKey.currentState.validate()) return;
+    if (!_formKey.currentState.saveAndValidate()) return;
+    final formValue = _formKey.currentState.value;
+    final user = User(
+      fullName: formValue['fullName'],
+      email: formValue['email'],
+      birthdate: formValue['birthdate'].toString(),
+      password: formValue['password'],
+    );
+    print(user.toJson());
   }
 
   @override
@@ -40,8 +49,9 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                     SizedBox(height: 30),
                     FormBuilderTextField(
-                      name: 'name',
+                      name: 'fullName',
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         labelText: 'Nome completo',
                       ),
@@ -53,6 +63,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     FormBuilderTextField(
                       name: 'email',
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
                         labelText: 'E-mail',
                       ),
@@ -62,10 +73,24 @@ class _SignupScreenState extends State<SignupScreen> {
                       ]),
                     ),
                     SizedBox(height: 15),
+                    FormBuilderDateTimePicker(
+                      name: "birthdate",
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        labelText: 'Data de nascimento',
+                      ),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(context),
+                      ]),
+                      textInputAction: TextInputAction.next,
+                      inputType: InputType.date,
+                    ),
+                    SizedBox(height: 15),
                     FormBuilderTextField(
                       name: 'password',
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       obscureText: _hiddenPassword,
+                      textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
                         labelText: 'Senha',
                         suffixIcon: GestureDetector(
