@@ -1,10 +1,10 @@
-class User {
+class UserModel {
   String _fullName;
   String _email;
   String _birthdate;
   String _password;
 
-  User({
+  UserModel({
     String fullName,
     String email,
     String birthdate,
@@ -25,7 +25,7 @@ class User {
   String get password => _password;
   set password(String password) => _password = password;
 
-  User.fromJson(Map<String, dynamic> json) {
+  UserModel.fromJson(Map<String, dynamic> json) {
     _fullName = json['fullName'];
     _email = json['email'];
     _birthdate = json['birthdate'];

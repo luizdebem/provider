@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:signup/components/BaseAppBar.dart';
-import 'package:signup/models/User.dart';
+import 'package:signup/models/UserModel.dart';
+import 'package:signup/screens/HomeScreen.dart';
+import 'package:signup/services/UserService.dart';
+import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
   SignupScreen({Key key}) : super(key: key);
@@ -13,20 +16,30 @@ class SignupScreen extends StatefulWidget {
 class _SignupScreenState extends State<SignupScreen> {
   final _formKey = GlobalKey<FormBuilderState>();
   bool _hiddenPassword = true;
-  void _onSubmit() {
-    if (!_formKey.currentState.saveAndValidate()) return;
-    final formValue = _formKey.currentState.value;
-    final user = User(
-      fullName: formValue['fullName'],
-      email: formValue['email'],
-      birthdate: formValue['birthdate'].toString(),
-      password: formValue['password'],
-    );
-    print(user.toJson());
-  }
 
   @override
   Widget build(BuildContext context) {
+    final userService = context.watch<UserService>();
+
+    void _onSubmit() {
+      if (!_formKey.currentState.saveAndValidate()) return;
+      final formValue = _formKey.currentState.value;
+
+      final user = UserModel(
+        fullName: formValue['fullName'],
+        email: formValue['email'],
+        birthdate: formValue['birthdate'].toString(),
+        password: formValue['password'],
+      );
+
+      userService.setCurrentUser(user);
+
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        HomeScreen.routeName,
+        (route) => false,
+      );
+    }
+
     return Scaffold(
       appBar: BaseAppBar(),
       body: SafeArea(
