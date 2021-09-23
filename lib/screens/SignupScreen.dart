@@ -7,6 +7,7 @@ import 'package:signup/services/UserService.dart';
 import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
+  static String routeName = '/signup';
   SignupScreen({Key key}) : super(key: key);
 
   @override

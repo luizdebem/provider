@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
           theme: defaultTheme,
           home: SignupScreen(),
           routes: {
+            SignupScreen.routeName: (context) => SignupScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
           },
         ),

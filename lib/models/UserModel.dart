@@ -40,4 +40,12 @@ class UserModel {
     data['password'] = this._password;
     return data;
   }
+
+  String getInitials() {
+    final List<String> splitName = fullName.split(" ");
+    final String initials = splitName.length > 1
+        ? "${splitName[0][0]}${splitName[1][0]}"
+        : "${splitName[0][0]}";
+    return initials.toUpperCase();
+  }
 }
