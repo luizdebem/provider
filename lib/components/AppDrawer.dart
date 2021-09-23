@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:signup/screens/ProfileScreen.dart';
 import 'package:signup/screens/SignupScreen.dart';
 import 'package:signup/services/UserService.dart';
 
@@ -28,7 +29,11 @@ class AppDrawer extends StatelessWidget {
                   children: [
                     ListTile(
                       title: Text("Meu perfil"),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).popAndPushNamed(
+                          ProfileScreen.routeName,
+                        );
+                      },
                       leading: Icon(
                         Icons.person_outline,
                       ),

@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:signup/screens/HomeScreen.dart';
+import 'package:signup/screens/ProfileScreen.dart';
 import 'package:signup/screens/SignupScreen.dart';
 import 'package:signup/services/UserService.dart';
 import 'package:signup/theme/themes.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(MyApp());
+  initializeDateFormatting().then(
+    (_) => {
+      runApp(
+        MyApp(),
+      ),
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -27,6 +35,7 @@ class MyApp extends StatelessWidget {
           routes: {
             SignupScreen.routeName: (context) => SignupScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
+            ProfileScreen.routeName: (context) => ProfileScreen(),
           },
         ),
       ),

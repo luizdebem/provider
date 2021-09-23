@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:signup/components/AppDrawer.dart';
 import 'package:signup/components/BaseAppBar.dart';
 import 'package:signup/services/UserService.dart';
+import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   static final routeName = '/home';
@@ -22,8 +23,26 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: Consumer<UserService>(
             builder: (context, userService, child) {
-              return Text(
-                "Seja bem-vindo, ${userService.currentUser?.fullName}",
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Seja bem-vindo, ${userService.currentUser?.fullName}!",
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "E-mail: ${userService.currentUser?.email}",
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    "Data de nascimento: ${DateFormat.yMMMMd('pt_BR').format(DateTime.parse(userService.currentUser?.birthdate))}",
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    "Senha: ${userService.currentUser?.password}",
+                  ),
+                ],
               );
             },
           ),

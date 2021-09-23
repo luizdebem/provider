@@ -5,6 +5,7 @@ import 'package:signup/models/UserModel.dart';
 import 'package:signup/screens/HomeScreen.dart';
 import 'package:signup/services/UserService.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class SignupScreen extends StatefulWidget {
   static String routeName = '/signup';
@@ -89,6 +90,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     SizedBox(height: 15),
                     FormBuilderDateTimePicker(
                       name: "birthdate",
+                      format: DateFormat.yMMMMd('pt_BR'),
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                         labelText: 'Data de nascimento',
